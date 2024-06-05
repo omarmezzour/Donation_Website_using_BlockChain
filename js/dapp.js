@@ -3,30 +3,24 @@ let web3;
 let fundingContract;
 const connectButton = document.getElementById("connectWallet");
 
-connectButton.addEventListener("click", async () => {
-    if (window.ethereum == undefined)
-        return alert("please install metamask or any other compatible ethereum provider")
-
-    console.log("metamask or other providers are installed")
-    try {
-        await window.ethereum.request({ method: "eth_requestAccounts" })
-        let myAddress = await getMyAddress()
-        myAddressEle.innerText = myAddress
-
-        web3 = new Web3(window.ethereum)
-        fundingContract = new web3.eth.Contract(fundingContractConfig.ABI, fundingContractConfig.address)
-
-        const balanceWei = await web3.eth.getBalance(myAddress)
-        const balanceEth = web3.utils.fromWei(balanceWei, 'ether')
-        const balanceDiv = document.getElementById('balanceDiv')
-        balanceDiv.innerText = `Balance: ${balanceEth} ETH`
-
-        await loadInfo()
-    }
-    catch (e) {
-        alert(e.message)
-    }
-});
+const main = async () => {
+    connectButton.addEventListener("click", async() => {
+        if (window.ethereum == undefined)
+            return alert("please install metamask")
+        console.log("metamask installed")
+        try {
+            await window.ethereum.request({method: "eth_requestAccounts"})
+            let myAddress = await getMyAddress()
+            addressEle.innerText = myAddress
+    
+            web3 = new Web3(window.ethereum)
+            fundingContract = new web3.eth.Contract(fundingContractConfig.ABI, fundingContractConfig.address)
+        }
+        catch (e) {
+            alert(e.message)
+        }
+    });
+}
 
 const loadInfo = async() => {
     fundingContract.methods.status().call()
@@ -34,7 +28,8 @@ const loadInfo = async() => {
             statusDiv.innerText = data.toString() == "true" ? "In Progress" : "Terminated"
         }).catch(e => console.log(e))
 
-    fundingContract.methods.receipient().call().then(data => {
+    fundingContract.methods.receipient().call()
+        .then(data => {
             receipientDiv.innerText = data
         }).catch(e => console.log(e))
 

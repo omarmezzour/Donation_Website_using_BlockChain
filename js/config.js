@@ -1,5 +1,5 @@
 export const fundingContractConfig = {
-    address : "0x1e90Bf8DcC42111bf43D58c620AA31b47Aa91D1c",
+    address : "0x5Ce9353693A5A42258d4E7B3E869F8B6cb757172",
     ABI : [
         {
             "inputs": [
