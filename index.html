@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/main.js" defer></script>
+    <script src="js/dapp.js" type="module"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Donation project</h1>
+        <div>
+            <p id="myAddressEle"></p>
+            <p id="balanceDiv"></p>
+            <button id="connectWallet">connect wallet</button>
+        </div>
+    </header>
+    <main>
+        <section>
+            <h2>List of Donations</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Donator address</th>
+                        <th>Amount ETH</th>
+                    </tr>
+                </thead>
+                <tbody id="listeDonator"></tbody>
+            </table>
+           <div class="donate">
+            <input type="number" id="amountInput" placeholder="Amount in Wei">
+            <button id="donateBtn">Donate</button>
+           </div>
+           <div id="amountDiv"></div>
+        </section>
+        <section>
+            <h2>Configuration</h2>
+            <ul>
+                <li>
+                    <div>Status</div>
+                    <div id="statusDiv"></div>
+                </li>
+                <li>
+                    <div>Receipient</div>
+                    <div id="receipientDiv"></div>
+                </li>
+                <li>
+                    <div>Target</div>
+                    <div id="seuilDiv"></div>
+                </li>
+                <li>
+                    <div>Amount collected</div>
+                    <div id="amountCollectedDiv"></div>
+                </li>
+            </ul>
+            <button id="redeemBtn" class="redeem">Redeem</button>
+            <div class="hidden"><a target="_blank" href="#">Transaction Hash</a></div>
+        </section>
+    </main>
+    <footer>
+        <p>Pr. TMIMI Mehdi</p>
+        <p>Tp blockchain - solidity & web3.js @uemf 2024</p>
+    </footer>
+    <div  id="loading" class="hidden"> please wait</div>
+</body>
+
+</html>
