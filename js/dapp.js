@@ -4,17 +4,25 @@ let fundingContract;
 const connectButton = document.getElementById("connectWallet");
 
 const main = async () => {
-    connectButton.addEventListener("click", async() => {
+    connectButton.addEventListener("click", async () => {
         if (window.ethereum == undefined)
-            return alert("please install metamask")
-        console.log("metamask installed")
+            return alert("please install metamask or any other compatible ethereum provider")
+    
+        console.log("metamask or other providers are installed")
         try {
-            await window.ethereum.request({method: "eth_requestAccounts"})
+            await window.ethereum.request({ method:"eth_requestAccounts" })
             let myAddress = await getMyAddress()
-            addressEle.innerText = myAddress
+            myAddressEle.innerText = myAddress
     
             web3 = new Web3(window.ethereum)
             fundingContract = new web3.eth.Contract(fundingContractConfig.ABI, fundingContractConfig.address)
+    
+            const balanceWei = await web3.eth.getBalance(myAddress)
+            const balanceEth = web3.utils.fromWei(balanceWei, 'ether')
+            const balanceDiv = document.getElementById('balanceDiv')
+            balanceDiv.innerText = `Balance: ${balanceEth} ETH`
+    
+            await loadInfo()
         }
         catch (e) {
             alert(e.message)
